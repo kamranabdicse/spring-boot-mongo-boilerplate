@@ -1,6 +1,4 @@
 package com.example.boilerplate.controller;
-
-
 import com.example.boilerplate.security.dto.LoginRequest;
 import com.example.boilerplate.security.dto.LoginResponse;
 import com.example.boilerplate.security.jwt.JwtTokenService;

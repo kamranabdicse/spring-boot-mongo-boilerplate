@@ -1,10 +1,9 @@
 package com.example.boilerplate.model.user;
-
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
 
 @Getter
 @Setter
@@ -22,7 +21,4 @@ public class User {
     @Indexed(unique = true)
     private String username;
     private String password;
-
-    private UserRole userRole;
-
 }

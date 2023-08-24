@@ -1,7 +1,6 @@
 package com.example.boilerplate.security.service;
 
 import com.example.boilerplate.model.user.User;
-import com.example.boilerplate.model.user.UserRole;
 import com.example.boilerplate.repository.UserRepository;
 import com.example.boilerplate.security.dto.AuthenticatedUserDto;
 import com.example.boilerplate.security.dto.RegistrationRequest;
@@ -46,7 +45,6 @@ public class UserServiceImpl implements UserService{
         final User user = UserMapper.INSTANCE.convertToUser(registrationRequest);
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setUserRole(UserRole.ADMIN);
         userRepository.save(user);
 
         final String response = "registration successfully";
@@ -60,4 +58,5 @@ public class UserServiceImpl implements UserService{
 
         return UserMapper.INSTANCE.convertToAuthenticatedUserDto(user);
     }
+
 }

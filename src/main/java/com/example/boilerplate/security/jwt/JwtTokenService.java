@@ -8,8 +8,6 @@ import com.example.boilerplate.security.mapper.UserMapper;
 import com.example.boilerplate.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 public class JwtTokenService {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
+    private final CustomAuthenticationManager authenticationManager;
 
     private final JwtTokenManager jwtTokenManager;
 
@@ -28,11 +26,9 @@ public class JwtTokenService {
         final String username = loginRequest.getUsername();
         final String password = loginRequest.getPassword();
 
-        final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                username, password
-        );
-
-        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        if (!authenticationManager.authenticate(username, password)){
+            System.out.println("Not authenticated");
+        }
 
         final AuthenticatedUserDto authenticatedUserDto = userService.findAuthenticatedUserByUsername(username);
 

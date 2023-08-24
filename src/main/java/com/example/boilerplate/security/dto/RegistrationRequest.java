@@ -1,6 +1,5 @@
 package com.example.boilerplate.security.dto;
 
-import com.example.boilerplate.model.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

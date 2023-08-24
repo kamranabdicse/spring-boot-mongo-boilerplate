@@ -1,6 +1,5 @@
 package com.example.boilerplate.security.dto;
 
-import com.example.boilerplate.model.user.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +17,4 @@ public class AuthenticatedUserDto {
     String username;
 
     String password;
-
-    UserRole userRole;
 }

@@ -12,4 +12,5 @@ public interface UserService {
 
     AuthenticatedUserDto findAuthenticatedUserByUsername(String username);
 
+
 }

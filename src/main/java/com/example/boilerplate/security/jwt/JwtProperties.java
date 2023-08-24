@@ -17,4 +17,6 @@ public class JwtProperties {
 
     private long expirationMinute;
 
+    private String type= "Bearer";
+
 }

@@ -4,8 +4,10 @@ import com.example.boilerplate.repository.UserRepository;
 import com.example.boilerplate.security.dto.RegistrationRequest;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserValidationService {
@@ -22,7 +24,8 @@ public class UserValidationService {
     private void checkUsername(String username) {
         final boolean existByUsername = userRepository.existsByUsername(username);
         if (existByUsername){
-            System.out.println(USERNAME_ALREADY_EXISTS);
+            log.warn("{} is already being used!", username);
+
         }
     }
 }

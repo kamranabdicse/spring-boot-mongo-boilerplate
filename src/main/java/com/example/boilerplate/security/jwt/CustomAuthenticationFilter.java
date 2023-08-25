@@ -1,5 +1,6 @@
 package com.example.boilerplate.security.jwt;
 
+import com.example.boilerplate.exceptions.UserAuthenticationException;
 import com.example.boilerplate.security.service.UserDetailsServiceImpl;
 import com.example.boilerplate.security.dto.AuthenticatedUserDto;
 import com.example.boilerplate.security.utils.SecurityConstants;
@@ -10,6 +11,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import org.springframework.web.filter.GenericFilterBean;
 import java.io.IOException;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomAuthenticationFilter extends GenericFilterBean {
@@ -53,7 +56,7 @@ public class CustomAuthenticationFilter extends GenericFilterBean {
                 try {
                     username = jwtTokenManager.getUsernameFromToken(authToken);
                 } catch (Exception e) {
-                    System.out.println("Authentication Exception");
+                    throw new UserAuthenticationException("Authentication Exception");
                 }
 
                 final SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -64,7 +67,7 @@ public class CustomAuthenticationFilter extends GenericFilterBean {
 
                     if (jwtTokenManager.validateToken(authToken, authenticatedUserDto.getUsername())) {
                         Authentication authentication = new AuthenticationImpl(authenticatedUserDto);
-                        System.out.println("Authentication successful. Logged in username: " + username);
+                        log.info("Authentication successful. Logged in username: {}", username);
                         securityContext.setAuthentication(authentication);
                     }
                 }

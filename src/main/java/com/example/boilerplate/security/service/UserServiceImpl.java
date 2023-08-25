@@ -10,10 +10,12 @@ import com.example.boilerplate.service.UserValidationService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService{
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
+        log.info("{} registered successfully!", user.getUsername());
         final String response = "registration successfully";
         return new RegistrationResponse(response);
     }

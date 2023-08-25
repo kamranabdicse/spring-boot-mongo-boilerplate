@@ -1,4 +1,5 @@
 package com.example.boilerplate.security.service;
+import com.example.boilerplate.exceptions.UserNotFoundException;
 import com.example.boilerplate.security.dto.AuthenticatedUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,7 +19,7 @@ public class UserDetailsServiceImpl {
         final AuthenticatedUserDto authenticatedUserDto = userService.findAuthenticatedUserByUsername(username);
 
         if(Objects.isNull(authenticatedUserDto)){
-            System.out.println(USERNAME_OR_PASSWORD_INVALID);
+            throw new UserNotFoundException("username not found");
         }
         return authenticatedUserDto;
     }

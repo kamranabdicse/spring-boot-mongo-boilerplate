@@ -1,5 +1,6 @@
 package com.example.boilerplate.security.jwt;
 
+import com.example.boilerplate.exceptions.UserAuthenticationException;
 import com.example.boilerplate.model.user.User;
 import com.example.boilerplate.security.dto.AuthenticatedUserDto;
 import com.example.boilerplate.security.dto.LoginRequest;
@@ -27,7 +28,7 @@ public class JwtTokenService {
         final String password = loginRequest.getPassword();
 
         if (!authenticationManager.authenticate(username, password)){
-            System.out.println("Not authenticated");
+            throw new UserAuthenticationException("user has not been authenticated");
         }
 
         final AuthenticatedUserDto authenticatedUserDto = userService.findAuthenticatedUserByUsername(username);
@@ -35,7 +36,7 @@ public class JwtTokenService {
         final User user = UserMapper.INSTANCE.convertToUser(authenticatedUserDto);
         final String token = jwtTokenManager.generateToken(user);
 
-        System.out.println("user has successfully logged in!");
+        log.info("{}  has successfully logged in!", user.getUsername());
 
         return new LoginResponse(token);
     }
